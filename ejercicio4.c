@@ -18,21 +18,10 @@ typedef struct Clientes {
     Producto *Productos; //El tamaño de este arreglo depende de la variable "CantidadProductosAPedir"
 }Cliente;
 
-float costoTotalDeProducto(Producto producto);
-
-int main(){
-    srand(time(NULL));
-    int cantidadDeClientes;
-    char *buffNombreCliente = (char*)malloc(100*sizeof(char));
-
-    printf("\nIngrese la cantidad de clientes: ");
-    scanf("%d", &cantidadDeClientes);
-    getchar();
-
-    //carga de clientes
-    Cliente *clientes = (Cliente*)malloc(sizeof(Cliente)*cantidadDeClientes);
+void cargarClientes(Cliente* clientes, int cantidadDeClientes);
+void cargarClientes(Cliente* clientes, int cantidadDeClientes){
     printf("Ingrese los datos de los clientes: \n");
-
+    char *buffNombreCliente = (char*)malloc(100*sizeof(char));
     for (int i = 0; i < cantidadDeClientes; i++){
         clientes[i].ClienteID = i + 1;
         
@@ -54,6 +43,20 @@ int main(){
     }
 
     free(buffNombreCliente);
+}
+float costoTotalDeProducto(Producto producto);
+
+int main(){
+    srand(time(NULL));
+    int cantidadDeClientes;
+
+    printf("\nIngrese la cantidad de clientes: ");
+    scanf("%d", &cantidadDeClientes);
+    getchar();
+
+    //carga de clientes
+    Cliente *clientes = (Cliente*)malloc(sizeof(Cliente)*cantidadDeClientes);
+    cargarClientes(clientes, cantidadDeClientes);
 
     //mostrar clientes
     for (int i = 0; i < cantidadDeClientes; i++){
