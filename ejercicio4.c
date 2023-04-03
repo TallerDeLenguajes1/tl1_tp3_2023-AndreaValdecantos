@@ -19,6 +19,27 @@ typedef struct Clientes {
 }Cliente;
 
 void cargarClientes(Cliente* clientes, int cantidadDeClientes);
+void mostrarClientes(Cliente* clientes, int cantidadDeClientes);
+float costoTotalDeProducto(Producto producto);
+
+int main(){
+    srand(time(NULL));
+    int cantidadDeClientes;
+
+    printf("\nIngrese la cantidad de clientes: ");
+    scanf("%d", &cantidadDeClientes);
+    getchar();
+
+    //carga de clientes
+    Cliente *clientes = (Cliente*)malloc(sizeof(Cliente)*cantidadDeClientes);
+    cargarClientes(clientes, cantidadDeClientes);
+
+    //mostrar clientes
+    mostrarClientes(clientes, cantidadDeClientes);
+
+    return 0;
+}
+
 void cargarClientes(Cliente* clientes, int cantidadDeClientes){
     printf("Ingrese los datos de los clientes: \n");
     char *buffNombreCliente = (char*)malloc(100*sizeof(char));
@@ -44,21 +65,7 @@ void cargarClientes(Cliente* clientes, int cantidadDeClientes){
 
     free(buffNombreCliente);
 }
-float costoTotalDeProducto(Producto producto);
-
-int main(){
-    srand(time(NULL));
-    int cantidadDeClientes;
-
-    printf("\nIngrese la cantidad de clientes: ");
-    scanf("%d", &cantidadDeClientes);
-    getchar();
-
-    //carga de clientes
-    Cliente *clientes = (Cliente*)malloc(sizeof(Cliente)*cantidadDeClientes);
-    cargarClientes(clientes, cantidadDeClientes);
-
-    //mostrar clientes
+void mostrarClientes(Cliente* clientes, int cantidadDeClientes){
     for (int i = 0; i < cantidadDeClientes; i++){
         float totalQuePagaElCliente = 0;
         printf("_____________ ID cliente: %d ______________\n", clientes[i].ClienteID);
@@ -76,11 +83,7 @@ int main(){
         printf("TOTAL A PAGAR POR EL CLIENTE: %.2f\n------------------------\n", totalQuePagaElCliente);
       printf("\n\n");
     }
-    
-
-    return 0;
 }
-
 float costoTotalDeProducto(Producto producto){
     return producto.Cantidad * producto.PrecioUnitario;
 }
