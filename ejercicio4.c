@@ -36,6 +36,7 @@ int main(){
         
         puts("Nombre del cliente");
         gets(buffNombreCliente);
+      puts("\n");
         clientes[i].NombreCliente = (char*)malloc((strlen(buffNombreCliente)+1)*sizeof(char));
         strcpy(clientes[i].NombreCliente,buffNombreCliente);
 
@@ -46,11 +47,26 @@ int main(){
             clientes[i].Productos[j].ProductoID = j + 1;
             clientes[i].Productos[j].Cantidad = rand() % 10 + 1;
             clientes[i].Productos[j].TipoProducto = *(TiposProductos + j);
-            clientes[i].Productos[j].PrecioUnitario = rand() % 91 + 10;
+            clientes[i].Productos[j].PrecioUnitario = ((float)rand())/((float)RAND_MAX) * (100 - 10) + 10;
         }
     }
 
     free(buffNombreCliente);
+
+    //mostrar clientes
+    for (int i = 0; i < cantidadDeClientes; i++){
+        printf("_____________ ID cliente: %d ______________\n", clientes[i].ClienteID);
+        printf("_____________ NOMBRE DEL CLIENTE: %s ______________\n", clientes[i].NombreCliente);
+        printf("_____________ Cantidad de productos: %d ______________\n", clientes[i].CantidadProductosAPedir);
+
+        for (int j = 0; j < clientes[i].CantidadProductosAPedir; j++){
+            printf("N° producto: %d\n", clientes[i].Productos[j].ProductoID);
+            printf("Tipo: %s\n", clientes[i].Productos[j].TipoProducto);
+            printf("Precio unitario: %.2f\n", clientes[i].Productos[j].PrecioUnitario);
+            printf("Cantidad: %d \n------------------------\n", clientes[i].Productos[j].Cantidad);
+        }
+      printf("\n\n");
+    }
     
 
     return 0;
